@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    ports: ["127.0.0.1:8081:8081"]
+    environment:
+      SPRING_PROFILES_ACTIVE: infra
+      DB_URL: jdbc:postgresql://postgres:5432/orderflow
+      DB_PASSWORD: local-db-only
+      RABBIT_HOST: rabbit
+      RABBIT_PASSWORD: local-queue-only
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-learn1234}
+    depends_on:
+      postgres: {condition: service_healthy}
+      rabbit: {condition: service_healthy}
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: orderflow
+      POSTGRES_USER: orderflow
+      POSTGRES_PASSWORD: local-db-only
+    volumes: ["pg-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U orderflow -d orderflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  rabbit:
+    image: rabbitmq:3.13-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: orderflow
+      RABBITMQ_DEFAULT_PASS: local-queue-only
+    ports: ["127.0.0.1:15672:15672"]
+    volumes: ["rabbit-data:/var/lib/rabbitmq"]
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  pg-data:
+  rabbit-data:

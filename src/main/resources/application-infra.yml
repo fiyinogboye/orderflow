@@ -1,0 +1,25 @@
+server.address: 0.0.0.0
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/orderflow}
+    username: ${DB_USER:orderflow}
+    password: ${DB_PASSWORD:local-db-only}
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    username: ${RABBIT_USER:orderflow}
+    password: ${RABBIT_PASSWORD:local-queue-only}
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template.mandatory: true
+    listener.simple:
+      auto-startup: true
+      concurrency: 2
+      prefetch: 1
+      default-requeue-rejected: false
+      retry:
+        enabled: true
+        max-attempts: 3
+        initial-interval: 1s
+        multiplier: 2
+management.health.rabbit.enabled: true
+orderflow.transport: rabbit
