@@ -128,7 +128,7 @@ async function start() {
   try {
     session = await api('/api/session');
     $('identity').textContent = `${session.username} · ${session.operator ? 'operator' : 'shopper'}`;
-    $('mode').textContent = session.transport === 'rabbit' ? 'RabbitMQ + PostgreSQL' : 'Local learning mode';
+    $('mode').textContent = session.transport === 'rabbit' ? 'RabbitMQ + PostgreSQL' : 'Local demo';
     newKey();
     await refresh();
     setInterval(refresh,2000);

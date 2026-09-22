@@ -3,12 +3,12 @@
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OrderFlow · Reliability Lab</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
 <body>
-<header><a class="brand" href="/">◈ OrderFlow <span>RELIABILITY LAB</span></a><div><span id="identity">Connecting…</span> <button id="logout" class="quiet">Log out</button></div></header>
+<header><a class="brand" href="/">◈ OrderFlow <span>ORDER MANAGEMENT</span></a><div><span id="identity">Connecting…</span> <button id="logout" class="quiet">Log out</button></div></header>
 <main>
-<section class="intro"><div><p class="eyebrow">BUILD IT. BREAK IT. UNDERSTAND IT.</p><h1>What happens after<br>“Place order”?</h1><p>Explore stock reservations, background jobs, and payments that don't always go to plan.</p></div><aside><span class="dot"></span><strong id="mode">Local lab</strong><p>Fictional products. Simulated payments.<br>No cards. No real money.</p></aside></section>
+<section class="intro"><div><p class="eyebrow">ORDER PROCESSING & PAYMENT TRACKING</p><h1>Order management dashboard</h1><p>Explore stock reservations, background jobs, and payments that don't always go to plan.</p></div><aside><span class="dot"></span><strong id="mode">Local lab</strong><p>Fictional products. Simulated payments.<br>No cards. No real money.</p></aside></section>
 <section id="metrics" class="metrics" hidden aria-label="Operator metrics"></section>
 <section class="workspace">
-<div class="panel"><div class="section-heading"><h2>01 / Create an order</h2><span class="tag">EXPERIMENT</span></div>
+<div class="panel"><div class="section-heading"><h2>01 / Create an order</h2><span class="tag">CHECKOUT</span></div>
 <form id="checkout">
 <label for="product">Product</label><select id="product" required></select>
 <label for="quantity">Quantity</label><input id="quantity" type="number" min="1" max="10" value="1" required>
@@ -18,7 +18,7 @@
 <label for="key">Request key <span class="hint">(idempotency key)</span></label>
 <div class="key-row"><input id="key" maxlength="80" minlength="8" required><button type="button" id="new-key" class="quiet">New key</button></div>
 <p class="hint">Send identical details with the same key twice: you should still get only one order. Use a new key for a new purchase.</p>
-<button type="submit" id="submit">Place simulated order →</button>
+<button type="submit" id="submit">Place order →</button>
 </form><p id="notice" role="status" aria-live="polite">Ready for your first experiment.</p></div>
 <div class="panel"><div class="section-heading"><h2>02 / Watch the system</h2><button id="refresh" class="quiet">Refresh</button></div><p class="hint">Updates every 2 seconds. Select an order to see its timeline. Latest 100 orders.</p><div id="orders" class="orders"></div></div>
 </section>
